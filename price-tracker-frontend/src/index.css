@@ -1,0 +1,27 @@
+/* index.css */
+
+/* Reset & box sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global body styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Make images responsive if you use any later */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
