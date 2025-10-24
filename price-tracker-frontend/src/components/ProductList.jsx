@@ -8,8 +8,11 @@ export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState({ name: '', url: '', targetPrice: '' });
 
+  console.log('API URL:', API);
+
   const fetchProductData = async () => {
     try {
+      console.log('Fetching from:', API);
       const response = await fetch(API);
       const products = await response.json();
       setProducts(products);
