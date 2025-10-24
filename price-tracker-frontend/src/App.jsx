@@ -12,7 +12,18 @@ function App() {
   const [error, setError] = useState('');
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
-  const API_BASE = 'http://localhost:5000/api/products';
+  // Log environment info for debugging
+  console.log('Environment:', {
+    nodeEnv: process.env.NODE_ENV,
+    apiUrl: import.meta.env.VITE_API_URL,
+    env: import.meta.env
+  });
+  
+  // Use environment variable for API base URL
+  const API_BASE = `${import.meta.env.VITE_API_URL || 'https://amazon-price-tracker-api-lmu1.onrender.com'}/api/products`;
+  
+  // Log environment info for debugging
+  console.log('API Base URL:', API_BASE);
 
   const fetchProducts = async () => {
     setLoading(true);

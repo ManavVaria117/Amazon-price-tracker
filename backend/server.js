@@ -11,6 +11,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 // Middleware
 app.use(cors({
   origin: [
+    'http://localhost:3000', 
     'http://localhost:5173',
     'https://amazon-price-tracker-one.vercel.app',
     'https://amazon-price-tracker-*.vercel.app'
