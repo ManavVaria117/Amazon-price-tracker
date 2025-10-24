@@ -25,7 +25,11 @@ router.post('/', async (req, res) => {
 // Get all products
 router.get('/', async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find({}).lean();
+    if (!Array.isArray(products)) {
+      console.error('Products is not an array:', products);
+      return res.json({ products: [] });
+    }
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });

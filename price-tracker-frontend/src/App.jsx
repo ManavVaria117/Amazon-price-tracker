@@ -8,18 +8,35 @@ function App() {
   const [form, setForm] = useState({ name: '', url: '', targetPrice: '', email: '' });
   const [editedTargetPrice, setEditedTargetPrice] = useState('');
   const [editedEmail, setEditedEmail] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const API_BASE = 'http://localhost:5000/api/products';
 
   const fetchProducts = async () => {
+    setLoading(true);
+    setError('');
     try {
       const res = await axios.get(API_BASE);
-      setProducts(res.data);
+      // Handle different response formats
+      if (res.data && Array.isArray(res.data)) {
+        setProducts(res.data);
+      } else if (res.data && typeof res.data === 'object' && res.data.products) {
+        // Handle case where products are nested in a products property
+        setProducts(Array.isArray(res.data.products) ? res.data.products : []);
+      } else {
+        console.error('Unexpected response format:', res.data);
+        setError('Unexpected response format from server');
+        setProducts([]);
+      }
     } catch (err) {
-      console.error(err);
-      setError('Failed to fetch products.');
+      console.error('Error fetching products:', err);
+      setError(`Failed to fetch products: ${err.message}. Please make sure the backend server is running.`);
+      setProducts([]);
+    } finally {
+      setLoading(false);
+      if (isInitialLoad) setIsInitialLoad(false);
     }
   };
 
@@ -113,8 +130,15 @@ function App() {
 
         {error && <p className="error">⚠️ {error}</p>}
 
-        <div className="product-grid">
-          {products.map(product => (
+        {isInitialLoad ? (
+          <p>Loading products...</p>
+        ) : error ? (
+          <p className="error">Error: {error}</p>
+        ) : !products || products.length === 0 ? (
+          <p>No products found. Add your first product to get started!</p>
+        ) : (
+          <div className="product-grid">
+            {products.map(product => (
             <div className="product-card" key={product._id}>
               <h3>{product.name}</h3>
               <p>Current: ₹{product.currentPrice || 'Wait till scan cycle'}</p>
@@ -168,7 +192,8 @@ function App() {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

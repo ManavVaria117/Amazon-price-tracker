@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css'; // Make sure this file has the styles below
 
-const API = 'http://localhost:5000/api/products';
+const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/products`;
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);

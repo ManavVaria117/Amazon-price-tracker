@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: amazon-price-tracker-api
+    env: node
+    rootDirectory: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        value: mongodb+srv://variamanav117:3sNjUtxcdncNMtkD@clusteramazonbot.8h5wvao.mongodb.net/?retryWrites=true&w=majority&appName=ClusterAmazonBot
+      - key: EMAIL
+        value: variamanav117@gmail.com
+      - key: PASSWORD
+        value: xyfm gfiv syeq ebaq
+      - key: RECEIVER_EMAIL
+        value: variamanav117@gmail.com
+      - key: SCHEDULE_TIME
+        value: "24 9 * * *"
