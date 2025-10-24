@@ -3,7 +3,7 @@ import axios from 'axios';
 import './App.css';
 
 // API Configuration
-const API_BASE_URL = 'https://amazon-price-tracker-api-lmu1.onrender.com';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://amazon-price-tracker-api-lmu1.onrender.com';
 const API_URL = `${API_BASE_URL}/api/products`;
 
 // Log environment info for debugging

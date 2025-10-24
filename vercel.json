@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "price-tracker-frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://amazon-price-tracker-api-lmu1.onrender.com/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/price-tracker-frontend/dist/$1"
+    }
+  ]
+}
